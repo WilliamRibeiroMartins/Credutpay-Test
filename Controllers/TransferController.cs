@@ -37,7 +37,7 @@ namespace Credutpay_Test.Controllers
 
 		[Authorize]
 		[HttpGet]
-		public async Task<IActionResult> ListTransfers([FromQuery] DateTime? from = null, [FromQuery] DateTime? to = null)
+		public async Task<IActionResult> ListTransfers([FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate)
 		{
 			string userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -46,7 +46,7 @@ namespace Credutpay_Test.Controllers
 
 			try
 			{
-				IEnumerable<Transfer> transfers = await _transferService.ListTransfersAsync(userId, from, to);
+				IEnumerable<Transfer> transfers = await _transferService.ListTransfersAsync(userId, startDate, endDate);
 
 				return Ok(transfers);
 			}
