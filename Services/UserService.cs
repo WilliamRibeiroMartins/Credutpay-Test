@@ -11,7 +11,7 @@ public class UserService : IUserService {
 
 	public async Task<User> CreateUserAsync(string username, string password)
 	{
-		var user = new User { Username = username, PasswordHash = password };
+		var user = new User { Username = username, PasswordHash = JwtHelper.HashPassword(password) };
 		
 		_context.Users.Add(user);
 		await _context.SaveChangesAsync();

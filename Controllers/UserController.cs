@@ -55,7 +55,7 @@ namespace Credutpay_Test.Controllers
 			try
 			{
 				await _userService.AddBalanceAsync(userId, request.Amount);
-				return Ok();
+				return Ok("Depósito realizado.");
 			}
 			catch (Exception ex)
 			{

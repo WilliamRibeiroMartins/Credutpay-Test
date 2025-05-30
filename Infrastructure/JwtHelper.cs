@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Credutpay_Test.Infrastructure
@@ -24,6 +25,15 @@ namespace Credutpay_Test.Infrastructure
 				signingCredentials: creds);
 
 			return new JwtSecurityTokenHandler().WriteToken(token);
+		}
+
+		public static string HashPassword(string password)
+		{
+			using var sha = SHA256.Create();
+			
+			var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
+			
+			return Convert.ToBase64String(bytes);
 		}
 	}
 }

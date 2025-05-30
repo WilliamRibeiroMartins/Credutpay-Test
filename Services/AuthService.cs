@@ -14,7 +14,7 @@ namespace Credutpay_Test.Services
 		{
 			var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == username);
 
-			if (user == null || user.PasswordHash != password)
+			if (user == null || user.PasswordHash != JwtHelper.HashPassword(password))
 				throw new UnauthorizedAccessException();
 
 			string token = _jwt.GenerateToken(user);

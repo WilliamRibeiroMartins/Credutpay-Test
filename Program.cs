@@ -53,8 +53,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
-
 using (var scope = app.Services.CreateScope())
 {
 	var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -63,11 +61,13 @@ using (var scope = app.Services.CreateScope())
 	// Dados fictícios
 	if (!db.Users.Any())
 	{
-		User user1 = new User { Username = "alice", PasswordHash = "123", Balance = 1000 };
-		User user2 = new User { Username = "bob", PasswordHash = "123", Balance = 500 };
+		User user1 = new User { Username = "alice", PasswordHash = JwtHelper.HashPassword("123"), Balance = 1000 };
+		User user2 = new User { Username = "bob", PasswordHash = JwtHelper.HashPassword("123"), Balance = 500 };
 		
 		db.Users.AddRange(user1, user2);
 		
 		await db.SaveChangesAsync();
 	}
 }
+
+app.Run();

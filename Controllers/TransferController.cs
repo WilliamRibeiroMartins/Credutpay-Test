@@ -26,7 +26,7 @@ namespace Credutpay_Test.Controllers
 			{
 				await _transferService.TransferAsync(fromUserId, request.ToUserId, request.Amount);
 
-				return Ok();
+				return Ok("Transação realizada.");
 			}
 			catch (Exception ex)
 			{
