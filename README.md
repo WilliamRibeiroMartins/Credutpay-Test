@@ -119,16 +119,12 @@ curl --request POST \
 }'
 ```
 
-- `GET /transactions` — lista histórico de transações do usuário autenticado
+- `GET /transfer` — lista histórico de transações do usuário autenticado
 ```cURL
 curl --request GET \
-  --url https://localhost:7001/api/transfer \
+  --url 'https://localhost:7001/api/transfer?startDate=2025-05-30T02%3A00%3A00&endDate=2025-05-30T03%3A30%3A00' \
   --header 'Authorization: Bearer seu-token-jwt' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  "startDate": "2025-01-01T00:00:00",
-  "endDate": "2025-12-31T23:59:59"
-}'
+  --header 'Content-Type: application/json'
 ```
 
 - `GET /balance` — consulta saldo
