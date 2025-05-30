@@ -124,7 +124,11 @@ curl --request POST \
 curl --request GET \
   --url https://localhost:7001/api/transfer \
   --header 'Authorization: Bearer seu-token-jwt' \
-  --header 'Content-Type: application/json'
+  --header 'Content-Type: application/json' \
+  --data '{
+  "startDate": "2025-01-01T00:00:00",
+  "endDate": "2025-12-31T23:59:59"
+}'
 ```
 
 - `GET /balance` — consulta saldo

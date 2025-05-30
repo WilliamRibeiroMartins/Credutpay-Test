@@ -26,16 +26,20 @@ namespace Credutpay_Test.Services
 			await _context.SaveChangesAsync();
 		}
 
-		public async Task<IEnumerable<Transfer>> ListTransfersAsync(Guid userId, DateTime? from = null, DateTime? to = null)
+		public async Task<IEnumerable<Transfer>> ListTransfersAsync(Guid userId, DateTime? startDate = null, DateTime? endDate = null)
 		{
 			var query = _context.Transfers
 							.Where(t => t.FromUserId == userId || t.ToUserId == userId);
 			
-			if (from.HasValue)
-				query = query.Where(t => t.Date >= from);
+			if (startDate.HasValue){
+				startDate = DateTime.SpecifyKind(startDate.Value, DateTimeKind.Utc);
+				query = query.Where(t => t.Date >= startDate);
+			}
 			
-			if (to.HasValue)
-				query = query.Where(t => t.Date <= to);
+			if (endDate.HasValue){
+				endDate = DateTime.SpecifyKind(endDate.Value, DateTimeKind.Utc);
+				query = query.Where(t => t.Date <= endDate);
+			}
 			
 			return await query.ToListAsync();
 		}
